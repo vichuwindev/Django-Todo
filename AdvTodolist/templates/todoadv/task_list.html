@@ -7,23 +7,23 @@
 {% block content %}
 	
 	<div class="col-8 mt-5">
-		<form class="form-inline justify-content-center" method="post">
+		<form class="form-inline justify-content-center" id="create_form" data-url = "{% url 'task_list-url' %}" method="post">
 			{% csrf_token %}
 			{% for field in form %}
 			<div class="mx-3">
 				{{ field }}
 			</div>
 			{% endfor %}
-			<button type="submit" class="btn btn-success">create</button>
+			<button type="submit" id="create_button" class="btn btn-success">create</button>
 		</form>
 	</div>
 
-	<div class="col-5 mt-5">
+	<div class="col-5 mt-5" id="tasks_list">
 		{% for task in tasks %}
-			<div class="card mb-1">
+			<div class="card mb-1" id="task_card" data-id="{{ task.id }}" style="{% if task.completed %} text-decoration: line-through {% endif %}">
 				<div class="card-body">
 					{{ task.title}}
-					<button type="button" class="close" data-dismiss="model" aria-label="close">
+					<button type="button"  class="close float-right" data-dismiss="close" data-id="{{ task.id }}" aria-label="close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
